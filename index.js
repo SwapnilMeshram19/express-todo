@@ -43,6 +43,22 @@ app.put('/:id',(req,res)=>{
     res.send("todo has been updated")
 })
 
+app.delete('/:id',(req,res)=>{
+    const {id}=req.params;
+    let index=null;
+    todos.forEach((todo,i)=>{
+        if(todo.id==id){
+            index=i;
+        }
+    })
+    if(index==null){
+        return res.status(404).send('the todo does not exist');
+    }else{
+        todos.splice(index,1)
+        return res.send("todo has been deleted")
+    }
+})
+
 app.listen(8080, () => {
   console.log("server started on http://localhost:8080");
 });
